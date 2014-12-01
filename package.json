@@ -1,0 +1,11 @@
+{
+  "name": "generator-spooky",
+  "version": "1.0.0",
+  "description": "Generates a spooky project.",
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "~0.18.0"
+  }
+}
