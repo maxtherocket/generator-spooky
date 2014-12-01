@@ -35,7 +35,7 @@ module.exports = generators.Base.extend({
             this.template('models/site.json', 'src/js/models/site.json');
         },
         gitignore: function(){
-            this.copy('.gitignore', '.gitignore');
+            this.copy('._gitignore', '.gitignore');
         },
         sections: function(){
             this.template('sections/Home.js', 'src/js/sections/Home.js');
@@ -44,10 +44,11 @@ module.exports = generators.Base.extend({
             this.template('templates/Home.hbs', 'src/js/templates/Home.hbs');
         },
         bower: function(){
-            this.template('.bowerrc', '.bowerrc', {name:this.appname});
+            this.template('._bowerrc', '.bowerrc', {name:this.appname});
+            this.template('_bower.json', 'bower.json', {name:this.appname});
         },
         package: function(){
-            this.template('package.json', 'package.json', {name:this.appname});
+            this.template('_package.json', 'package.json', {name:this.appname});
         },
         gruntfile: function(){
             this.copy('Gruntfile.js', 'Gruntfile.js');
