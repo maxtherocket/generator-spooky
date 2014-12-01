@@ -35,7 +35,7 @@ module.exports = generators.Base.extend({
             this.template('models/site.json', 'src/js/models/site.json');
         },
         gitignore: function(){
-            this.copy('._gitignore', '.gitignore');
+            this.copy('_gitignore', '.gitignore');
         },
         sections: function(){
             this.template('sections/Home.js', 'src/js/sections/Home.js');
@@ -44,7 +44,7 @@ module.exports = generators.Base.extend({
             this.template('templates/Home.hbs', 'src/js/templates/Home.hbs');
         },
         bower: function(){
-            this.template('._bowerrc', '.bowerrc', {name:this.appname});
+            this.template('_bowerrc', '.bowerrc', {name:this.appname});
             this.template('_bower.json', 'bower.json', {name:this.appname});
         },
         package: function(){
