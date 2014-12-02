@@ -41,7 +41,7 @@ module.exports = generators.Base.extend({
             this.template('sections/Home.js', 'src/js/sections/Home.js');
         },
         templates: function(){
-            this.template('templates/Home.hbs', 'src/js/templates/Home.hbs');
+            this.template('templates/sections/Home.hbs', 'src/js/templates/sections/Home.hbs');
         },
         bower: function(){
             this.template('_bowerrc', '.bowerrc', {name:this.appname});
