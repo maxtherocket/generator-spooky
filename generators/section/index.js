@@ -28,15 +28,16 @@ module.exports = generators.Base.extend({
 
             // Append any ui directories
             var uiNameSplit = props.uiName.split('/');
+
+            this.uiName = this._.classify(uiNameSplit[uiNameSplit.length-1]);
+
             if (uiNameSplit.length > 1){
                 uiNameSplit.splice(-1,1);
                 this.uiDir += uiNameSplit.join('/') + '/';
             }
-
-            this.uiName = this._.classify(uiNameSplit[uiNameSplit.length-1]);
             
             console.log('');
-            console.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
+            console.log('Creating section:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
             console.log('');
 
             done();
