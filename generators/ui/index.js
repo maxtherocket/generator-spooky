@@ -37,6 +37,13 @@ module.exports = generators.Base.extend({
                 this.uiDir += uiNameSplit.join('/') + '/';
             }
             
+            // Generate a depth sting for requiring templates
+            this.depthPath = '';
+            var depth = this._(this.uiDir).count('/');
+            for (var i = 0, len = depth; i < len; i += 1) {
+                this.depthPath += '../';
+            }
+
             console.log('');
             console.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
             console.log('');
@@ -50,7 +57,7 @@ module.exports = generators.Base.extend({
         var dashedName = this._.dasherize(this.uiName);
         dashedName = this._.trim(dashedName, '-');
 
-        vars = {dashedName: dashedName, className:className, dir:this.uiDir};
+        vars = {dashedName: dashedName, className:className, dir:this.uiDir, depthPath:this.depthPath};
 
         this.template('UIElement.hbs', 'src/js/templates/' + this.uiDir + className + '.hbs', vars);
         this.template('UIElement.less', 'src/less/' + this.uiDir + className + '.less', vars);
