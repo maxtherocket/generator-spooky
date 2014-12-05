@@ -31,7 +31,7 @@ module.exports = function(grunt) {
                 tasks: ['less_imports']
             },
             less: {
-                files: '<%= config.src %>/less/**/*.less',
+                files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/less/*.less'],
                 tasks: ['less:dev']
             }
         },
