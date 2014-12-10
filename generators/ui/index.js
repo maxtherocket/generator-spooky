@@ -61,7 +61,7 @@ module.exports = generators.Base.extend({
 
         this.template('UIElement.hbs', 'src/js/templates/' + this.uiDir + className + '.hbs', vars);
         this.template('UIElement.less', 'src/less/' + this.uiDir + className + '.less', vars);
-        this.template('UIElement.js', 'src/js/' + this.uiDir + className + '.js', vars);
+        this.template('UIElement.js', 'src/js/' + this.uiDir + className + '.es6', vars);
     }
 
 });

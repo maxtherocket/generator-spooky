@@ -60,7 +60,7 @@ module.exports = generators.Base.extend({
 
         this.template('Section.hbs', 'src/js/templates/' + this.uiDir + className + '.hbs', vars);
         this.template('Section.less', 'src/less/' + this.uiDir + className + '.less', vars);
-        this.template('Section.js', 'src/js/' + this.uiDir + className + '.js', vars);
+        this.template('Section.js', 'src/js/' + this.uiDir + className + '.es6', vars);
     }
 
 });
