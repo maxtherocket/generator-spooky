@@ -1,3 +1,5 @@
+var to5 = require('6to5-browserify');
+
 module.exports = function(grunt) {
     'use strict';
     // Project configuration
@@ -22,17 +24,12 @@ module.exports = function(grunt) {
             ' Licensed <%= props.license %> */\n',
 
         watch: {
-            js: {
-                files: '<%= config.src %>/js/**/*.js',
-                tasks: ['browserify:dev']
-            },
-            less_imports: {
-                files: ['<%= config.src %>/less/ui/*.less', '<%= config.src %>/less/sections/*.less'],
-                tasks: ['less_imports']
-            },
             less: {
-                files: ['<%= config.src %>/less/**/*.less', '<%= config.src %>/less/*.less'],
-                tasks: ['less:dev']
+                files: ['<%= config.src %>/less/**/*.less'],
+                tasks: ['less_imports', 'less:dev'],
+                options: {
+                  interrupt: false
+                }
             }
         },
 
@@ -56,12 +53,16 @@ module.exports = function(grunt) {
 
         browserify: {
             options: {
-                transform: ['hbsfy', '6to5-browserify']
+                transform: [to5.configure({only:/.*\.es6/}), 'hbsfy'],
+                browserifyOptions: {
+                    extensions: ['.es6']
+                }
             },
             dev: {
                 options: {
                     watch: true,
-                    keepAlive: true
+                    keepAlive: true,
+                    debug: true
                 },
                 files: {
                     '<%= config.tmp %>/main.js': ['<%= config.src %>/js/main.js']
@@ -82,7 +83,7 @@ module.exports = function(grunt) {
 
         concurrent: {
             dev: {
-                tasks: ['connect', 'watch', 'browserify:dev'],
+                tasks: ['watch', 'browserify:dev', 'connect'],
                 options: {
                     logConcurrentOutput: true
                 }

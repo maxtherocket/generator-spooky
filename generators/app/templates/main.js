@@ -1,17 +1,29 @@
-var Router = require('spooky-router');
+var model = require('spooky-model');
+// Setup model
+model.init(require('./models/site'));
+
+var router = require('./router-main');
 var domReady = require('domready');
+var on = require('dom-event');
 
 domReady(function(){
 
     var container = document.getElementById('spooky-container');
+    var body = document.body;
 
     var routerInit = function(){
         this.add('home', '/', {view:require('./sections/Home')});
     }
 
-    var model = require('./models/site');
+    router.init(container, routerInit);
 
-    var router = new Router(container, routerInit, model);
-    router.init();
+    // RESIZE
+    var resize = function(){
+        var w = window.innerWidth;
+        var h = window.innerHeight;
+        router.resize(w,h);
+    };
+    resize();
+    on(window, 'resize', resize);
 
 });

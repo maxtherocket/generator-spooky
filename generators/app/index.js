@@ -31,14 +31,17 @@ module.exports = generators.Base.extend({
         js: function(){
             this.template('main.js', 'src/js/main.js');
         },
+        router: function(){
+            this.template('router-main.js', 'src/js/router-main.js');
+        },
         models: function(){
-            this.template('models/site.json', 'src/js/models/site.json');
+            this.template('models/site.js', 'src/js/models/site.js');
         },
         gitignore: function(){
             this.copy('_gitignore', '.gitignore');
         },
         sections: function(){
-            this.template('sections/Home.js', 'src/js/sections/Home.js');
+            this.template('sections/Home.es6', 'src/js/sections/Home.es6');
         },
         templates: function(){
             this.template('templates/sections/Home.hbs', 'src/js/templates/sections/Home.hbs');
