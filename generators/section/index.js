@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator');
 var chalk = require('chalk');
+var utils = require('../utils');
 
 module.exports = generators.Base.extend({
 
@@ -14,6 +15,10 @@ module.exports = generators.Base.extend({
             name: 'uiName',
             message: 'Name your section (including any sub folders):'
         },
+        {
+            name: 'platform',
+            message: 'Which platform? (leave blank for desktop):'
+        }
         // {
         //     type: 'confirm',
         //     name: 'addDemoSection',
@@ -25,6 +30,8 @@ module.exports = generators.Base.extend({
         this.prompt(prompts, function (props) {
 
             this.uiDir = 'sections/';
+
+            this.platform = props.platform;
 
             // Append any ui directories
             var uiNameSplit = props.uiName.split('/');
@@ -58,9 +65,9 @@ module.exports = generators.Base.extend({
 
         vars = {dashedName: dashedName, className:className, dir:this.uiDir, depthPath:this.depthPath};
 
-        this.template('Section.hbs', 'src/js/templates/' + this.uiDir + className + '.hbs', vars);
-        this.template('Section.less', 'src/less/' + this.uiDir + className + '.less', vars);
-        this.template('Section.js', 'src/js/' + this.uiDir + className + '.es6', vars);
+        this.template('Section.hbs', 'src/js/' + utils.addPlatform(this.platform, 'templates') + '/' + this.uiDir + className + '.hbs', vars);
+        this.template('Section.less', 'src/' + utils.addPlatform(this.platform, 'less') + '/' + this.uiDir + className + '.less', vars);
+        this.template('Section.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', vars);
     }
 
 });

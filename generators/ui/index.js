@@ -1,5 +1,6 @@
 var generators = require('yeoman-generator');
 var chalk = require('chalk');
+var utils = require('../utils');
 
 module.exports = generators.Base.extend({
 
@@ -7,13 +8,20 @@ module.exports = generators.Base.extend({
         var done = this.async();
  
         // have Yeoman greet the user
-        console.log(this.yeoman);
+        this.log(this.yeoman);
  
+        // This makes `appname` a required argument.
+        // this.argument('platform', { type: String, required: false });
+
         var prompts = [
         {
             name: 'uiName',
             message: 'Name your UI element (including any sub folders):'
         },
+        {
+            name: 'platform',
+            message: 'Which platform? (leave blank for desktop):'
+        }
         // {
         //     type: 'confirm',
         //     name: 'addDemoSection',
@@ -21,10 +29,12 @@ module.exports = generators.Base.extend({
         //     default: true
         // }
         ];
- 
+
         this.prompt(prompts, function (props) {
 
             this.uiDir = 'ui/';
+
+            this.platform = props.platform;
 
             // Append any ui directories
             var uiNameSplit = props.uiName.split('/');
@@ -44,9 +54,9 @@ module.exports = generators.Base.extend({
                 this.depthPath += '../';
             }
 
-            console.log('');
-            console.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
-            console.log('');
+            this.log('');
+            this.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
+            this.log('');
 
             done();
         }.bind(this));
@@ -59,9 +69,9 @@ module.exports = generators.Base.extend({
 
         vars = {dashedName: dashedName, className:className, dir:this.uiDir, depthPath:this.depthPath};
 
-        this.template('UIElement.hbs', 'src/js/templates/' + this.uiDir + className + '.hbs', vars);
-        this.template('UIElement.less', 'src/less/' + this.uiDir + className + '.less', vars);
-        this.template('UIElement.js', 'src/js/' + this.uiDir + className + '.es6', vars);
+        this.template('UIElement.hbs', 'src/js/'+ utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs', vars);
+        this.template('UIElement.less', 'src/'+ utils.addPlatform(this.platform, 'less')+'/' + this.uiDir + className + '.less', vars);
+        this.template('UIElement.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', vars);
     }
 
 });

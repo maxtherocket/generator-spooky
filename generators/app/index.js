@@ -67,8 +67,7 @@ module.exports = generators.Base.extend({
         }
     },
 
-    install: function() {
-        console.log('Installing dependencies...');
+    install: function(){
         this.installDependencies({
             bower: false,
             npm: true,
