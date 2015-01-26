@@ -1,6 +1,7 @@
 var generators = require('yeoman-generator');
 var chalk = require('chalk');
 var utils = require('../utils');
+var _ = require('lodash');
 
 module.exports = generators.Base.extend({
 
@@ -67,11 +68,13 @@ module.exports = generators.Base.extend({
         var dashedName = this._.dasherize(this.uiName);
         dashedName = this._.trim(dashedName, '-');
 
-        vars = {dashedName: dashedName, className:className, dir:this.uiDir, depthPath:this.depthPath};
+        var vars = {dashedName: dashedName, className:className, depthPath:this.depthPath};
 
-        this.template('UIElement.hbs', 'src/js/'+ utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs', vars);
+        var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
+
+        this.template('UIElement.hbs', 'src/js/' + templatePath, vars);
         this.template('UIElement.less', 'src/'+ utils.addPlatform(this.platform, 'less')+'/' + this.uiDir + className + '.less', vars);
-        this.template('UIElement.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', vars);
+        this.template('UIElement.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
     }
 
 });

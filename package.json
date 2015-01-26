@@ -1,12 +1,13 @@
 {
   "name": "generator-spooky",
-  "version": "1.4.0",
+  "version": "1.4.1",
   "description": "Generates a spooky project.",
   "keywords": [
     "yeoman-generator"
   ],
   "dependencies": {
-    "yeoman-generator": "~0.18.0",
-    "chalk": "~0.5.1"
+    "chalk": "~0.5.1",
+    "lodash": "^3.0.0",
+    "yeoman-generator": "~0.18.0"
   }
 }
