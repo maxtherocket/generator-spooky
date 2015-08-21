@@ -12,7 +12,7 @@ domReady(function(){
     var body = document.body;
 
     var routerInit = function(){
-        this.add('home', '/', {view:require('./sections/Home')});
+        this.add('home', '/', {view:require('./sections/Home/Home')});
     }
 
     router.init(container, routerInit);

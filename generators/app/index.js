@@ -41,10 +41,13 @@ module.exports = generators.Base.extend({
             this.copy('_gitignore', '.gitignore');
         },
         sections: function(){
-            this.template('sections/Home.es6', 'src/js/sections/Home.es6');
+            this.template('sections/Home/Home.es6', 'src/js/sections/Home/Home.es6');
+        },
+        sectionsStyle: function(){
+            this.template('sections/Home/Home.scss', 'src/js/sections/Home/Home.scss');
         },
         templates: function(){
-            this.template('templates/sections/Home.hbs', 'src/js/templates/sections/Home.hbs');
+            this.template('sections/Home/Home.hbs', 'src/js/sections/Home/Home.hbs');
         },
         bower: function(){
             this.template('_bowerrc', '.bowerrc', {name:this.appname});
@@ -57,10 +60,8 @@ module.exports = generators.Base.extend({
             this.copy('Gruntfile.js', 'Gruntfile.js');
         },
         less: function(){
-          this.copy('less/main.less', 'src/less/main.less');
-          this.directory('less/imports', 'src/less/imports');
-          this.directory('less/sections', 'src/less/sections');
-          this.directory('less/ui', 'src/less/ui');
+          this.copy('sass/main.scss', 'src/sass/main.scss');
+          this.directory('sass/partials', 'src/sass/partials');
         },
         fonts: function(){
           this.directory('fonts', 'src/fonts');

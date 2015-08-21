@@ -12,17 +12,17 @@ module.exports = generators.Base.extend({
         this.log(this.yeoman);
  
         // This makes `appname` a required argument.
-        // this.argument('platform', { type: String, required: false });
+        this.argument('esVersion', { type: String, required: false });
 
         var prompts = [
         {
             name: 'uiName',
             message: 'Name your UI element (including any sub folders):'
         },
-        {
-            name: 'platform',
-            message: 'Which platform? (leave blank for desktop):'
-        }
+        // {
+        //     name: 'platform',
+        //     message: 'Which platform? (leave blank for desktop):'
+        // }
         // {
         //     type: 'confirm',
         //     name: 'addDemoSection',
@@ -47,8 +47,10 @@ module.exports = generators.Base.extend({
                 uiNameSplit.splice(-1,1);
                 this.uiDir += uiNameSplit.join('/') + '/';
             }
+
+            this.uiDir = this.uiDir + this.uiName + '/';
             
-            // Generate a depth sting for requiring templates
+            // Generate a depth string for requiring templates
             this.depthPath = '';
             var depth = this._(this.uiDir).count('/');
             for (var i = 0, len = depth; i < len; i += 1) {
@@ -72,9 +74,14 @@ module.exports = generators.Base.extend({
 
         var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
 
-        this.template('UIElement.hbs', 'src/js/' + templatePath, vars);
-        this.template('UIElement.less', 'src/'+ utils.addPlatform(this.platform, 'less')+'/' + this.uiDir + className + '.less', vars);
-        this.template('UIElement.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
+        this.template('UIElement.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
+        this.template('UIElement.less', 'src/js/' + this.uiDir + className + '.scss', vars);
+
+        if (this.esVersion && this.esVersion == 6)
+        	this.template('UIElement.es6', 'src/js/' +  this.uiDir + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
+    	} else {
+        	this.template('UIElement.js', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+        }
     }
 
 });

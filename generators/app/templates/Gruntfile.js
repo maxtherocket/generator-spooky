@@ -1,4 +1,4 @@
-var to5 = require('6to5-browserify');
+var babelify = require('babelify');
 
 module.exports = function(grunt) {
     'use strict';
@@ -25,10 +25,10 @@ module.exports = function(grunt) {
 
         watch: {
             less: {
-                files: ['<%= config.src %>/less/**/*.less'],
-                tasks: ['less_imports', 'less:dev'],
+                files: ['<%= config.src %>/js/**/*.scss', '<%= config.src %>/sass/**/*.scss'],
+                tasks: ['sass_import:dev', 'sass:dev'],
                 options: {
-                  interrupt: false
+                  interrupt: true
                 }
             }
         },
@@ -51,11 +51,37 @@ module.exports = function(grunt) {
             }
         },
 
+        sass: {
+            options: {
+            	loadPath: './'
+            },
+            dev: {
+                files: {
+                    '<%= config.tmp %>/main.css': "<%= config.src %>/sass/main.scss"
+                }
+            },
+            dist: {
+                files: {
+                    '<%= config.dist %>/main.css': "<%= config.src %>/sass/main.scss"
+                }
+            }
+        },
+
+        sass_import: {
+          options: {
+          },
+          dev: {
+            files: {
+              '<%= config.src %>/sass/imports.scss': ['<%= config.src %>/js/**/*.scss']
+            }
+          },
+        },
+
         browserify: {
             options: {
-                transform: [to5.configure({only:/.*\.es6/}), 'hbsfy'],
+                transform: [babelify, 'hbsfy'],
                 browserifyOptions: {
-                    extensions: ['.es6']
+                	extensions: ['.es6']
                 }
             },
             dev: {
@@ -88,6 +114,29 @@ module.exports = function(grunt) {
                     logConcurrentOutput: true
                 }
             }
+        },
+
+        clean: {
+        	dist: ['<%= config.dist %>']
+        },
+
+        copy: {
+          dist: {
+            files: [
+              // includes files within path
+
+              {expand: true, cwd:'<%= config.src %>', src: ['*.html'], dest: '<%= config.dist %>/', filter: 'isFile'},
+
+              // includes files within path and its sub-directories
+              //{expand: true, src: ['path/**'], dest: 'dest/'},
+
+              // makes all src relative to cwd
+              //{expand: true, cwd: 'path/', src: ['**'], dest: 'dest/'},
+
+              // flattens results to a single level
+              //{expand: true, flatten: true, src: ['path/**'], dest: 'dest/', filter: 'isFile'},
+            ],
+          },
         }
 
     });
@@ -97,10 +146,14 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-contrib-clean');
+    grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-less-imports');
+    grunt.loadNpmTasks('grunt-sass-import');
 
     // Default task
-    grunt.registerTask('default', ['less_imports:dev', 'less:dev', 'concurrent:dev']);
+    grunt.registerTask('default', ['sass_import:dev', 'sass:dev', 'concurrent:dev']);
 
 };

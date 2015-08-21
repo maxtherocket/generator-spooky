@@ -16,10 +16,10 @@ module.exports = generators.Base.extend({
             name: 'uiName',
             message: 'Name your section (including any sub folders):'
         },
-        {
-            name: 'platform',
-            message: 'Which platform? (leave blank for desktop):'
-        }
+        // {
+        //     name: 'platform',
+        //     message: 'Which platform? (leave blank for desktop):'
+        // }
         // {
         //     type: 'confirm',
         //     name: 'addDemoSection',
@@ -43,6 +43,8 @@ module.exports = generators.Base.extend({
                 uiNameSplit.splice(-1,1);
                 this.uiDir += uiNameSplit.join('/') + '/';
             }
+
+            this.uiDir = this.uiDir + this.uiName + '/';
 
             // Generate a depth sting for requiring templates
             this.depthPath = '';
@@ -68,9 +70,9 @@ module.exports = generators.Base.extend({
 
         var templatePath = utils.addPlatform(this.platform, 'templates') + '/' + this.uiDir + className + '.hbs';
 
-        this.template('Section.hbs', 'src/js/' + templatePath, vars);
-        this.template('Section.less', 'src/' + utils.addPlatform(this.platform, 'less') + '/' + this.uiDir + className + '.less', vars);
-        this.template('Section.js', 'src/js/' + utils.addPlatform(this.platform, this.uiDir) + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
+        this.template('Section.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
+        this.template('Section.less', 'src/js/' + this.uiDir + className + '.scss', vars);
+        this.template('Section.js', 'src/js/' + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
     }
 
 });

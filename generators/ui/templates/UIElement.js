@@ -1,12 +1,15 @@
 var SpookyEl = require('spooky-element');
+var Class = require('js-oop');
 
-class <%= className %> extends SpookyEl {
+var <%= className %> = new Class({
 
-    constructor(data){
-        this.template = require('<%= depthPath %><%= templatePath %>');
-        super(data);
+	Extends: SpookyEl,
+
+    initialize: function(data){
+        this.template = require('./<%= className %>.hbs');
+        SpookyEl.call(this, data);
     }
 
-}
+});
 
 module.exports = <%= className %>;
