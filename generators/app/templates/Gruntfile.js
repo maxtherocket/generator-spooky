@@ -47,7 +47,7 @@ module.exports = function(grunt) {
                 import: 'less' // default: once
             },
             dev: {
-                files: {'<%= config.src %>/less/_imports.less': ['<%= config.src %>/less/ui/**/*.less', '<%= config.src %>/less/sections/**/*.less']}
+                files: {'<%= config.src %>/less/_imports.less': ['<%= config.src %>/js/**/*.scss']}
             }
         },
 
