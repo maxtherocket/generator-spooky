@@ -77,7 +77,7 @@ module.exports = generators.Base.extend({
         this.template('UIElement.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
         this.template('UIElement.less', 'src/js/' + this.uiDir + className + '.scss', vars);
 
-        if (this.esVersion && this.esVersion == 5){
+        if (this.esVersion && this.esVersion == 'es5'){
           this.template('UIElement.js', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );          
     	   } else {
           this.template('UIElement.es6', 'src/js/' +  this.uiDir + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
