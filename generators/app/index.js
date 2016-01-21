@@ -41,7 +41,7 @@ module.exports = generators.Base.extend({
             this.copy('_gitignore', '.gitignore');
         },
         sections: function(){
-            this.template('sections/Home/Home.es6', 'src/js/sections/Home/Home.es6');
+            this.template('sections/Home/Home.es6', 'src/js/sections/Home/Home.js');
         },
         sectionsStyle: function(){
             this.template('sections/Home/Home.scss', 'src/js/sections/Home/Home.scss');
@@ -58,6 +58,12 @@ module.exports = generators.Base.extend({
         },
         gruntfile: function(){
             this.copy('Gruntfile.js', 'Gruntfile.js');
+        },
+        gulpfile: function(){
+            this.copy('gulpfile.js', 'gulpfile.js');
+        },
+        editorconfig: function(){
+            this.copy('_editorconfig', '.editorconfig');
         },
         less: function(){
           this.copy('sass/main.scss', 'src/sass/main.scss');

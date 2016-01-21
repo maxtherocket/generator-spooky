@@ -3,12 +3,12 @@ var Class = require('js-oop');
 
 var <%= className %> = new Class({
 
-	Extends: SpookyEl,
+  Extends: SpookyEl,
 
-    initialize: function(data){
-        this.template = require('./<%= className %>.hbs');
-        SpookyEl.call(this, data);
-    }
+  initialize: function(data){
+    this.template = require('./<%= className %>.hbs');
+    SpookyEl.call(this, data);
+  }
 
 });
 

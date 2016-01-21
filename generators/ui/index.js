@@ -7,10 +7,10 @@ module.exports = generators.Base.extend({
 
     prompting: function() {
         var done = this.async();
- 
+
         // have Yeoman greet the user
         this.log(this.yeoman);
- 
+
         // This makes `appname` a required argument.
         this.argument('esVersion', { type: String, required: false });
 
@@ -49,7 +49,7 @@ module.exports = generators.Base.extend({
             }
 
             this.uiDir = this.uiDir + this.uiName + '/';
-            
+
             // Generate a depth string for requiring templates
             this.depthPath = '';
             var depth = this._(this.uiDir).count('/');
@@ -78,9 +78,9 @@ module.exports = generators.Base.extend({
         this.template('UIElement.less', 'src/js/' + this.uiDir + className + '.scss', vars);
 
         if (this.esVersion && this.esVersion == 'es5'){
-          this.template('UIElement.js', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );          
+          this.template('UIElement.js', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
     	   } else {
-          this.template('UIElement.es6', 'src/js/' +  this.uiDir + className + '.es6', _.assign(vars, {templatePath:templatePath}) );
+          this.template('UIElement.es6', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
         }
     }
 

@@ -1,5 +1,7 @@
 @import "partials/reset";
 @import "partials/mixins";
+@import "partials/flexbox";
+@import "partials/fonts";
 
 html, body {
 	padding: 0;
@@ -8,3 +10,6 @@ html, body {
 	font-family: Helvetica, sans-serif;
 	color: #000;
 }
+
+@import '../js/sections/**/*';
+@import '../js/ui/**/*';
