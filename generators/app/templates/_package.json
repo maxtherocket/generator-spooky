@@ -10,10 +10,10 @@
     "handlebars": "~4.0.5",
     "hbsfy": "~2.4.1",
     "js-oop": "^1.0.0",
-    "spooky-element": "^1.0.0",
+    "spooky-element": "^2.2.0",
     "spooky-globals": "^1.0.0",
     "spooky-model": "^1.0.0",
-    "spooky-router": "^1.0.0"
+    "spooky-router": "^1.12.1"
   },
   "devDependencies": {
     "babelify": "~7.2.0",
