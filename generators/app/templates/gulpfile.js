@@ -139,7 +139,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function () {
-  return gulp.del([BUILD]);
+  return del([BUILD]);
 });
 
 // Copy
