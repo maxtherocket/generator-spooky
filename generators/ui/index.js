@@ -74,13 +74,13 @@ module.exports = generators.Base.extend({
 
         var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
 
-        this.template('UIElement.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
-        this.template('UIElement.less', 'src/js/' + this.uiDir + className + '.scss', vars);
+        this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
+        this.template('UIElement.less', 'src/' + this.uiDir + className + '.scss', vars);
 
         if (this.esVersion && this.esVersion == 'es5'){
-          this.template('UIElement.js', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+          this.template('UIElement.js', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
     	   } else {
-          this.template('UIElement.es6', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+          this.template('UIElement.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
         }
     }
 

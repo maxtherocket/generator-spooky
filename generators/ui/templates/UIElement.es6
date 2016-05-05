@@ -1,3 +1,5 @@
+require('./<%= className %>.scss');
+
 var SpookyEl = require('spooky-element');
 
 class <%= className %> extends SpookyEl {
