@@ -1,0 +1,16 @@
+@import "../lib/breakpoint-sass/stylesheets/breakpoint";
+
+$phone: 300px 727px;
+$tablet: 728px 1024px;
+$phone-tablet: 300px 1024px;
+$desktop: 1025px 1399px;
+$desktop-all: 1025px;
+$large-desktop: 1400px;
+
+@mixin clearfix {
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

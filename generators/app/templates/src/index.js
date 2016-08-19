@@ -1,3 +1,5 @@
+require('./styles/index.scss');
+
 var model = require('spooky-model');
 // Setup model
 model.init(require('./models/site'));
