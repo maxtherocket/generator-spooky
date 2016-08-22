@@ -2,20 +2,18 @@ var generators = require('yeoman-generator');
 var chalk = require('chalk');
 var utils = require('../utils');
 var _ = require('lodash');
+var underscore = require('underscore.string');
 
 module.exports = generators.Base.extend({
 
     prompting: function() {
-        var done = this.async();
-
-        // have Yeoman greet the user
-        this.log(this.yeoman);
 
         // This makes `appname` a required argument.
         this.argument('esVersion', { type: String, required: false });
 
         var prompts = [
         {
+            type: 'input',
             name: 'uiName',
             message: 'Name your UI element (including any sub folders):'
         },
@@ -31,57 +29,61 @@ module.exports = generators.Base.extend({
         // }
         ];
 
-        this.prompt(prompts, function (props) {
+        return this.prompt(prompts).then( function (props) {
 
-            this.uiDir = 'ui/';
+            this.props = props;
 
-            this.platform = props.platform;
+        }.bind(this) );
 
-            // Append any ui directories
-            var uiNameSplit = props.uiName.split('/');
-
-            // Grab the last portion of the uiNameSplit
-            this.uiName = this._.classify( uiNameSplit[uiNameSplit.length-1] );
-
-            if (uiNameSplit.length > 1){
-                uiNameSplit.splice(-1,1);
-                this.uiDir += uiNameSplit.join('/') + '/';
-            }
-
-            this.uiDir = this.uiDir + this.uiName + '/';
-
-            // Generate a depth string for requiring templates
-            this.depthPath = '';
-            var depth = this._(this.uiDir).count('/');
-            for (var i = 0, len = depth; i < len; i += 1) {
-                this.depthPath += '../';
-            }
-
-            this.log('');
-            this.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
-            this.log('');
-
-            done();
-        }.bind(this));
     },
 
     writing: function(){
-        var className = this._.classify(this.uiName);
-        var dashedName = this._.dasherize(this.uiName);
-        dashedName = this._.trim(dashedName, '-');
 
-        var vars = {dashedName: dashedName, className:className, depthPath:this.depthPath};
+      this.uiDir = 'ui/';
 
-        var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
+      this.platform = this.props.platform;
 
-        this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
-        this.template('UIElement.less', 'src/' + this.uiDir + className + '.scss', vars);
+      // Append any ui directories
+      var uiNameSplit = this.props.uiName.split('/');
 
-        if (this.esVersion && this.esVersion == 'es5'){
-          this.template('UIElement.js', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-    	   } else {
-          this.template('UIElement.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-        }
+      // Grab the last portion of the uiNameSplit
+      this.uiName = underscore.classify( uiNameSplit[uiNameSplit.length-1] );
+
+      if (uiNameSplit.length > 1){
+          uiNameSplit.splice(-1,1);
+          this.uiDir += uiNameSplit.join('/') + '/';
+      }
+
+      this.uiDir = this.uiDir + this.uiName + '/';
+
+      // Generate a depth string for requiring templates
+      this.depthPath = '';
+      var depth = underscore.count(this.uiDir, '/');
+      for (var i = 0, len = depth; i < len; i += 1) {
+          this.depthPath += '../';
+      }
+
+      this.log('');
+      this.log('Creating UI Element:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
+      this.log('');
+
+
+      var className = underscore.classify(this.uiName);
+      var dashedName = underscore.dasherize(this.uiName);
+      dashedName = underscore.trim(dashedName, '-');
+
+      var vars = {dashedName: dashedName, className:className, depthPath:this.depthPath};
+
+      var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
+
+      //this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
+      this.template('UIElement.less', 'src/' + this.uiDir + className + '.scss', vars);
+
+      if (this.esVersion && this.esVersion == 'es5'){
+        this.template('UIElement.js', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+  	   } else {
+        this.template('UIElement.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+      }
     }
 
 });

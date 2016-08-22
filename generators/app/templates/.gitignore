@@ -1,5 +1,0 @@
-.DS_Store
-node_modules
-.tmp
-src/less/_imports.less
-.sass-cache

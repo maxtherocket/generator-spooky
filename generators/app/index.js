@@ -68,8 +68,15 @@ module.exports = yeoman.Base.extend({
         // }
         root: function(){
           this.fs.copyTpl(
-            glob.sync(this.templatePath('*'), {dot: true}),
+            glob.sync(this.templatePath('*'), {dot: true, ignore:['.DS_Store', '_gitignore']}),
             this.destinationPath('./'),
+            { name: this.props.name }
+          );
+        },
+        gitignore: function(){
+          this.fs.copyTpl(
+            this.templatePath('_gitignore'),
+            this.destinationPath('.gitignore'),
             { name: this.props.name }
           );
         }
