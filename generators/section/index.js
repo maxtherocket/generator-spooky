@@ -2,11 +2,11 @@ var generators = require('yeoman-generator');
 var chalk = require('chalk');
 var utils = require('../utils');
 var _ = require('lodash');
+var underscore = require('underscore.string');
 
 module.exports = generators.Base.extend({
 
     prompting: function() {
-        var done = this.async();
 
         // have Yeoman greet the user
         this.log(this.yeoman);
@@ -31,54 +31,54 @@ module.exports = generators.Base.extend({
         // }
         ];
 
-        this.prompt(prompts, function (props) {
-
-            this.uiDir = 'sections/';
-
-            this.platform = props.platform;
-
-            // Append any ui directories
-            var uiNameSplit = props.uiName.split('/');
-
-            this.uiName = this._.classify(uiNameSplit[uiNameSplit.length-1]);
-
-            if (uiNameSplit.length > 1){
-                uiNameSplit.splice(-1,1);
-                this.uiDir += uiNameSplit.join('/') + '/';
-            }
-
-            this.uiDir = this.uiDir + this.uiName + '/';
-
-            // Generate a depth sting for requiring templates
-            this.depthPath = '';
-            var depth = this._(this.uiDir).count('/');
-            for (var i = 0, len = depth; i < len; i += 1) {
-                this.depthPath += '../';
-            }
-
-            this.log('');
-            this.log('Creating section:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
-            this.log('');
-
-            done();
+        return this.prompt(prompts).then( function (props) {
+          this.props = props;
         }.bind(this));
     },
 
     writing: function(){
-        var className = this._.classify(this.uiName);
-        var dashedName = this._.dasherize(this.uiName);
-        dashedName = this._.trim(dashedName, '-');
+
+        this.uiDir = 'sections/';
+
+        this.platform = this.props.platform;
+
+        // Append any ui directories
+        var uiNameSplit = this.props.uiName.split('/');
+
+        this.uiName = underscore.classify(uiNameSplit[uiNameSplit.length-1]);
+
+        if (uiNameSplit.length > 1){
+          uiNameSplit.splice(-1,1);
+          this.uiDir += uiNameSplit.join('/') + '/';
+        }
+
+        this.uiDir = this.uiDir + this.uiName + '/';
+
+        // Generate a depth sting for requiring templates
+        this.depthPath = '';
+        var depth = underscore.count(this.uiDir, '/');
+        for (var i = 0, len = depth; i < len; i += 1) {
+          this.depthPath += '../';
+        }
+
+        this.log('');
+        this.log('Creating section:', chalk.bold.yellow(this.uiName), 'in this directory:', chalk.bold.yellow(this.uiDir) );
+        this.log('');
+
+        var className = underscore.classify(this.uiName);
+        var dashedName = underscore.dasherize(this.uiName);
+        dashedName = underscore.trim(dashedName, '-');
 
         vars = {dashedName: dashedName, className:className, depthPath:this.depthPath};
 
         var templatePath = utils.addPlatform(this.platform, 'templates') + '/' + this.uiDir + className + '.hbs';
 
-        this.template('Section.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
-        this.template('Section.less', 'src/js/' + this.uiDir + className + '.scss', vars);
+        //this.template('Section.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
+        this.template('Section.less', 'src/' + this.uiDir + className + '.scss', vars);
         if (this.esVersion && this.esVersion == 'es5'){
-          this.template('Section.js', 'src/js/' + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+          this.template('Section.js', 'src/' + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
         } else {
-          this.template('Section.es6', 'src/js/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+          this.template('Section.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
         }
     }
 

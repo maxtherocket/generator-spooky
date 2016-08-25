@@ -1,10 +1,14 @@
+require('./<%= className %>.scss');
+
 var SpookyEl = require('spooky-element');
+var yo = require('yo-yo');
 
 class <%= className %> extends SpookyEl {
 
-    constructor(data){
-        super(require('./<%= className %>.hbs'), data);
-    }
+  constructor(data){
+    var el = yo`<div class="section-<%= dashedName %>"></div>`;
+    super(el);
+  }
 
 }
 
