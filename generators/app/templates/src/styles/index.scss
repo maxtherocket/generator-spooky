@@ -1,3 +1,5 @@
+@import "~normalize.css/normalize.css";
+
 @import "~styles/vars";
 @import "~styles/fonts";
 
@@ -5,7 +7,15 @@ html, body {
   -webkit-font-smoothing: antialiased;
 	padding: 0;
 	margin: 0;
-	background: #000;
+	background: #fff;
 	font-family: Helvetica, sans-serif;
-	color: #fff;
+	color: #000;
+}
+
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
 }
