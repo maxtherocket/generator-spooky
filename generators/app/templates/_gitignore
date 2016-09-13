@@ -4,3 +4,4 @@ node_modules
 .sass-cache
 dist
 src/lib
+npm-debug.log

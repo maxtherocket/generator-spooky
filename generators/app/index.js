@@ -3,6 +3,7 @@ var yeoman = require('yeoman-generator');
 var chalk = require('chalk');
 var yosay = require('yosay');
 var glob = require('glob');
+var underscore = require('underscore.string');
 
 module.exports = yeoman.Base.extend({
 
@@ -68,9 +69,9 @@ module.exports = yeoman.Base.extend({
         // }
         root: function(){
           this.fs.copyTpl(
-            glob.sync(this.templatePath('*'), {dot: true, ignore:['.DS_Store', '_gitignore']}),
+            glob.sync(this.templatePath('*'), {dot: true, ignore:['.DS_Store', this.templatePath('_gitignore')]}),
             this.destinationPath('./'),
-            { name: this.props.name }
+            { name: underscore.dasherize(this.props.name.toLowerCase()) }
           );
         },
         gitignore: function(){
