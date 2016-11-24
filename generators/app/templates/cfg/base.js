@@ -9,6 +9,8 @@ let defaultSettings = require('./defaults');
 // let additionalPaths = [ path.join(npmBase, 'react-bootstrap') ];
 let additionalPaths = [];
 
+var autoprefixer = require('autoprefixer');
+
 module.exports = {
   additionalPaths: additionalPaths,
   port: defaultSettings.port,
@@ -46,5 +48,10 @@ module.exports = {
     net: 'empty',
     tls: 'empty'
   },
-  module: {}
+  module: {},
+  postcss: function () {
+    return [
+      autoprefixer({ browsers: ['last 2 versions'] })
+    ];
+  }
 };

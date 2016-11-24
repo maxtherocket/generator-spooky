@@ -7,6 +7,7 @@ model.init(require('./models/site'));
 var router = require('./router-main');
 var domReady = require('domready');
 var eve = require('dom-events');
+var windowSize = require('./utils/window-size');
 
 domReady(function(){
 
@@ -14,16 +15,16 @@ domReady(function(){
   var body = document.body;
 
   var routerInit = function(){
-      this.add('home', '/', {view:require('./sections/Home/Home')});
+    this.add('home', '/', {view:require('./sections/Home/Home')});
   }
 
-  router.init(container, routerInit);
+  var initialSize = windowSize();
+  router.init(container, routerInit, initialSize.w, initialSize.h, true);
 
   // RESIZE
   var resize = function(){
-      var w = window.innerWidth;
-      var h = window.innerHeight;
-      router.resize(w,h);
+    var size = windowSize();
+    router.resize(size.w, size.h);
   };
   resize();
   eve.on(window, 'resize', resize);

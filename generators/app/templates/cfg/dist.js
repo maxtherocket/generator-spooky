@@ -18,11 +18,17 @@ let config = Object.assign({}, baseConfig, {
     ]
   },
   cache: false,
-  devtool: 'source-map',
+  devtool: 'cheap-module-source-map',
   plugins: [
     new webpack.optimize.DedupePlugin(),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': '"production"'
+      'process.env.NODE_ENV': '"dist"'
+    }),
+    new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "window.jQuery": "jquery",
+        "gsap": "gsap"
     }),
     new BowerWebpackPlugin({
       searchResolveModulesDirectories: false
@@ -40,7 +46,7 @@ let config = Object.assign({}, baseConfig, {
   }
 });
 
-config.output.publicPath = 'http://www.yolandasspuntinocasa.com/assets/';
+config.output.publicPath = '';
 
 // Add needed loaders to the defaults here
 config.module.loaders.push({
@@ -59,13 +65,13 @@ config.module.loaders.push({
 
 config.module.loaders.push({
   test: /\.scss/,
-  //loader: 'style-loader!css-loader!postcss-loader!sass-loader?outputStyle=expanded'
-  loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!autoprefixer-loader!sass-loader?outputStyle=expanded")
+  loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!sass-loader?sourceMap&outputStyle=expanded")
+  //loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!autoprefixer-loader!sass-loader?outputStyle=expanded")
 });
 config.module.loaders.push({
   test: /\.css$/,
-  //loader: 'style-loader!css-loader!postcss-loader'
-  loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
+  loader: ExtractTextPlugin.extract("style-loader", "css-loader!resolve-url!postcss-loader")
+  //loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
 });
 
 module.exports = config;

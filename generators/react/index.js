@@ -40,7 +40,7 @@ module.exports = generators.Base.extend({
 
     writing: function(){
 
-      this.uiDir = 'ui/';
+      this.uiDir = '';
 
       this.platform = this.props.platform;
 
@@ -74,9 +74,9 @@ module.exports = generators.Base.extend({
 
       var vars = {dashedName: dashedName, className:className, depthPath:this.depthPath};
 
-      this.template('UIElement.scss', 'src/' + this.uiDir + className + '.scss', vars);
+      this.template('UIElement.scss', '' + this.uiDir + className + '.scss', vars);
 
-      this.template('UIElement.jsx', 'src/' +  this.uiDir + className + '.jsx', vars);
+      this.template('UIElement.jsx', '' +  this.uiDir + className + '.jsx', vars);
 
     }
 

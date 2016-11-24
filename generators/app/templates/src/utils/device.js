@@ -6,7 +6,10 @@ module.exports = {
 
   isMobile: md.mobile(),
   isPhone: md.phone(),
-  isTablet: md.tablet()
+  isTablet: md.tablet(),
+  isSafari: (md.match('safari') && md.match('AppleWebKit') && !md.match('chrome')),
+  isFirefox: (md.match('firefox')),
+  isTouch: isTouch
 
 };
 

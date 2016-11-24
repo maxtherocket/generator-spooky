@@ -4,17 +4,18 @@ let path = require('path');
 let webpack = require('webpack');
 let baseConfig = require('./base');
 let defaultSettings = require('./defaults');
+require('dotenv').config();
 var myIp = require('my-ip');
 
 // Add needed plugins here
 let BowerWebpackPlugin = require('bower-webpack-plugin');
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 
-var Dashboard = require('webpack-dashboard');
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var dashboard = new Dashboard();
+// var Dashboard = require('webpack-dashboard');
+// var DashboardPlugin = require('webpack-dashboard/plugin');
+// var dashboard = new Dashboard();
 
-var host = '127.0.0.1';
+var host = process.env.HOST || '127.0.0.1';
 
 let config = Object.assign({}, baseConfig, {
   entry: {
@@ -27,7 +28,7 @@ let config = Object.assign({}, baseConfig, {
   cache: true,
   devtool: 'eval-source-map',
   plugins: [
-    new DashboardPlugin(dashboard.setData),
+    //new DashboardPlugin(dashboard.setData),
     new webpack.HotModuleReplacementPlugin(),
     //new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
@@ -53,7 +54,8 @@ let config = Object.assign({}, baseConfig, {
   }
 });
 
-config.output.publicPath = 'http://' + host + ':' + defaultSettings.port + '/assets/';
+config.devServer.host = host;
+//config.output.publicPath = 'http://' + host + ':' + defaultSettings.port + '/assets/';
 
 // Add needed loaders to the defaults here
 config.module.loaders.push({
@@ -66,7 +68,7 @@ config.module.loaders.push({
 });
 config.module.loaders.push({
   test: /\.scss/,
-  loader: 'style-loader!css-loader!postcss-loader!autoprefixer-loader!sass-loader?sourceMap&outputStyle=expanded'
+  loader: 'style-loader!css-loader!postcss-loader!sass-loader?sourceMap&outputStyle=expanded'
   //loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!autoprefixer-loader!sass-loader?outputStyle=expanded")
 });
 config.module.loaders.push({
