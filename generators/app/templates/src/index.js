@@ -9,8 +9,7 @@ var domReady = require('domready');
 var eve = require('dom-events');
 var windowSize = require('./utils/window-size');
 
-domReady(function(){
-
+function init(){
   var container = document.getElementById('spooky-container');
   var body = document.body;
 
@@ -28,5 +27,10 @@ domReady(function(){
   };
   resize();
   eve.on(window, 'resize', resize);
+}
+
+domReady(function(){
+
+  init();
 
 });

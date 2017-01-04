@@ -27,6 +27,7 @@ module.exports = {
     quite: true,
     hot: true,
     port: defaultSettings.port,
+    host: defaultSettings.host,
     publicPath: defaultSettings.publicPath,
     noInfo: false
   },

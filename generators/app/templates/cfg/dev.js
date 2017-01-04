@@ -15,13 +15,9 @@ var ExtractTextPlugin = require("extract-text-webpack-plugin");
 // var DashboardPlugin = require('webpack-dashboard/plugin');
 // var dashboard = new Dashboard();
 
-var host = process.env.HOST || '127.0.0.1';
-
 let config = Object.assign({}, baseConfig, {
   entry: {
     app:[
-      'webpack-dev-server/client?http://' + host + ':' + defaultSettings.port,
-      'webpack/hot/only-dev-server',
       './src/index.js'
     ]
   },
@@ -29,7 +25,7 @@ let config = Object.assign({}, baseConfig, {
   devtool: 'eval-source-map',
   plugins: [
     //new DashboardPlugin(dashboard.setData),
-    new webpack.HotModuleReplacementPlugin(),
+    //new webpack.HotModuleReplacementPlugin(),
     //new webpack.NoErrorsPlugin(),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"dev"'
@@ -54,13 +50,11 @@ let config = Object.assign({}, baseConfig, {
   }
 });
 
-config.devServer.host = host;
-//config.output.publicPath = 'http://' + host + ':' + defaultSettings.port + '/assets/';
-
 // Add needed loaders to the defaults here
 config.module.loaders.push({
   test: /\.(js|jsx)$/,
-  loader: 'react-hot!babel-loader',
+  //loader: 'react-hot!babel-loader',
+  loader: 'babel-loader',
   include: [].concat(
     config.additionalPaths,
     [ path.join(__dirname, '/../src') ]

@@ -46,7 +46,7 @@ let config = Object.assign({}, baseConfig, {
   }
 });
 
-config.output.publicPath = '';
+config.output.publicPath = 'assets/';
 
 // Add needed loaders to the defaults here
 config.module.loaders.push({
@@ -65,12 +65,12 @@ config.module.loaders.push({
 
 config.module.loaders.push({
   test: /\.scss/,
-  loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!sass-loader?sourceMap&outputStyle=expanded")
+  loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!sass-loader?sourceMap&outputStyle=expanded", {publicPath:'./'})
   //loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader!autoprefixer-loader!sass-loader?outputStyle=expanded")
 });
 config.module.loaders.push({
   test: /\.css$/,
-  loader: ExtractTextPlugin.extract("style-loader", "css-loader!resolve-url!postcss-loader")
+  loader: ExtractTextPlugin.extract("style-loader", "css-loader!resolve-url!postcss-loader", {publicPath:'./'})
   //loader: ExtractTextPlugin.extract("style-loader", "css-loader!postcss-loader")
 });
 

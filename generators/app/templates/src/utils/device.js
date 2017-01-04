@@ -1,6 +1,7 @@
 var MobileDetect = require('mobile-detect');
 
 var md = new MobileDetect(window.navigator.userAgent);
+var hasTouch = require('has-touch');
 
 module.exports = {
 
@@ -9,7 +10,7 @@ module.exports = {
   isTablet: md.tablet(),
   isSafari: (md.match('safari') && md.match('AppleWebKit') && !md.match('chrome')),
   isFirefox: (md.match('firefox')),
-  isTouch: isTouch
+  isTouch: hasTouch
 
 };
 

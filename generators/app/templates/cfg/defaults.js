@@ -2,9 +2,10 @@
 const path = require('path');
 const srcPath = path.join(__dirname, '/../src');
 const libPath = path.join(__dirname, '/../src/lib');
-const dfltPort = 8001;
 
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+require('dotenv').config();
+const host = process.env.HOST || '127.0.0.1';
+const dfltPort = process.env.PORT || 8000;
 
 function getDefaultModules() {
   return {
@@ -54,6 +55,7 @@ module.exports = {
   libPath: libPath,
   publicPath: '/assets/',
   port: dfltPort,
+  host: host,
   getDefaultModules: getDefaultModules,
   postcss: function () {
     return [];
