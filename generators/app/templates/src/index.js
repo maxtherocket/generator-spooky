@@ -18,7 +18,7 @@ function init(){
   }
 
   var initialSize = windowSize();
-  router.init(container, routerInit, initialSize.w, initialSize.h, true);
+  router.init(container, routerInit, initialSize.w, initialSize.h, true); // Overlap sections
 
   // RESIZE
   var resize = function(){

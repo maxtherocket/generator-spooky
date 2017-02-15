@@ -20,6 +20,7 @@
   },
   "dependencies": {
     "has-touch": "^1.0.1",
+    "contentful": "^3.8.1",
     "aspect-fill": "^1.0.1",
     "aspect-fit": "^1.0.2",
     "dom-events": "~0.1.1",

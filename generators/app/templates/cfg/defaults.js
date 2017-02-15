@@ -27,14 +27,10 @@ function getDefaultModules() {
         test: /\.json/,
         loader: 'json-loader'
       },
-      {
-        test: /\.hbs/,
-        loader: 'handlebars-loader'
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-inline?removeSVGTagAttrs=false'
-      },
+      // {
+      //   test: /\.svg$/,
+      //   loader: 'svg-inline?removeSVGTagAttrs=false'
+      // },
       {
         test: /\.styl/,
         loader: 'style-loader!css-loader!postcss-loader!stylus-loader'
