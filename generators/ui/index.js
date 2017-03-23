@@ -9,7 +9,7 @@ module.exports = generators.Base.extend({
     prompting: function() {
 
         // This makes `appname` a required argument.
-        this.argument('esVersion', { type: String, required: false });
+        this.argument('subdir', { type: String, required: false });
 
         var prompts = [
         {
@@ -76,14 +76,13 @@ module.exports = generators.Base.extend({
 
       var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
 
-      //this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
-      this.template('UIElement.less', 'src/' + this.uiDir + className + '.scss', vars);
+      var subdir = (this.subdir) ? +this.subdir+'/' : '';
 
-      if (this.esVersion && this.esVersion == 'es5'){
-        this.template('UIElement.js', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-  	   } else {
-        this.template('UIElement.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-      }
+      //this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
+      this.template('UIElement.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);
+
+      this.template('UIElement.es6', 'src/' + subdir + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
+
     }
 
 });
