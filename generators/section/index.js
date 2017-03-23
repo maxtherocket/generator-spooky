@@ -76,9 +76,8 @@ module.exports = generators.Base.extend({
         var subdir = (this.subdir) ? +this.subdir+'/' : '';
 
         //this.template('Section.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
-        this.template('Section.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);\
-
-        this.template('Section.es6', 'src/' + subdir + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );\
+        this.template('Section.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);
+        this.template('Section.es6', 'src/' + subdir + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
     }
 
 });

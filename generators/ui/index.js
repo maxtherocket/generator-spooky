@@ -80,7 +80,6 @@ module.exports = generators.Base.extend({
 
       //this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
       this.template('UIElement.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);
-
       this.template('UIElement.es6', 'src/' + subdir + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
 
     }
