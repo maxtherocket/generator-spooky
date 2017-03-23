@@ -12,7 +12,7 @@ module.exports = generators.Base.extend({
         this.log(this.yeoman);
 
         // This makes `appname` a required argument.
-        this.argument('esVersion', { type: String, required: false });
+        this.argument('subdir', { type: String, required: false });
 
         var prompts = [
         {
@@ -73,13 +73,12 @@ module.exports = generators.Base.extend({
 
         var templatePath = utils.addPlatform(this.platform, 'templates') + '/' + this.uiDir + className + '.hbs';
 
+        var subdir = (this.subdir) ? +this.subdir+'/' : '';
+
         //this.template('Section.hbs', 'src/js/' + this.uiDir + className + '.hbs', vars);
-        this.template('Section.less', 'src/' + this.uiDir + className + '.scss', vars);
-        if (this.esVersion && this.esVersion == 'es5'){
-          this.template('Section.js', 'src/' + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-        } else {
-          this.template('Section.es6', 'src/' +  this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );
-        }
+        this.template('Section.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);\
+
+        this.template('Section.es6', 'src/' + subdir + this.uiDir + className + '.js', _.assign(vars, {templatePath:templatePath}) );\
     }
 
 });
