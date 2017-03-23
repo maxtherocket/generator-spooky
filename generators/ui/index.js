@@ -76,7 +76,7 @@ module.exports = generators.Base.extend({
 
       var templatePath = utils.addPlatform(this.platform, 'templates')+'/' + this.uiDir + className + '.hbs';
 
-      var subdir = (this.subdir) ? +this.subdir+'/' : '';
+      var subdir = (this.subdir) ? this.subdir+'/' : '';
 
       //this.template('UIElement.hbs', 'src/' + this.uiDir + className + '.hbs', vars);
       this.template('UIElement.less', 'src/' + subdir + this.uiDir + className + '.scss', vars);
