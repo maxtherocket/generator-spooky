@@ -1,12 +1,12 @@
 require('./Home.scss');
 
-var SpookyEl = require('spooky-element');
-var yo = require('yo-yo');
+const SpookyEl = require('spooky-element');
+const yo = require('yo-yo');
 
 class Home extends SpookyEl {
 
   constructor(data){
-    var el = yo`<div class="section-home"></div>`;
+    let el = yo`<div class="section-home"></div>`;
     super(el);
   }
 

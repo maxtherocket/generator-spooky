@@ -1,28 +1,28 @@
 require('./styles/index.scss');
 
-var model = require('spooky-model');
+const model = require('spooky-model');
 // Setup model
 model.init(require('./models/site'));
 
-var router = require('./router-main');
-var domReady = require('domready');
-var eve = require('dom-events');
-var windowSize = require('./utils/window-size');
+const router = require('./router-main');
+const domReady = require('domready');
+const eve = require('dom-events');
+const windowSize = require('./utils/window-size');
 
 function init(){
-  var container = document.getElementById('spooky-container');
-  var body = document.body;
+  const container = document.getElementById('spooky-container');
+  const body = document.body;
 
-  var routerInit = function(){
+  const routerInit = function(){
     this.add('home', '/', {view:require('./sections/Home/Home')});
   }
 
-  var initialSize = windowSize();
+  let initialSize = windowSize();
   router.init(container, routerInit, initialSize.w, initialSize.h, true); // Overlap sections
 
   // RESIZE
-  var resize = function(){
-    var size = windowSize();
+  let resize = function(){
+    let size = windowSize();
     router.resize(size.w, size.h);
   };
   resize();

@@ -1,15 +1,15 @@
 require('./<%= className %>.scss');
 
-var SpookyEl = require('spooky-element');
-var yo = require('yo-yo');
+const SpookyEl = require('spooky-element');
+const yo = require('yo-yo');
 
 class <%= className %> extends SpookyEl {
 
   constructor(data){
-    var el = yo`
+    super();
+    this.view = yo`
     <div class="ui-<%= dashedName %>">
     </div>`;
-    super(el, data);
   }
 
 }

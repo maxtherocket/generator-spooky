@@ -6,3 +6,6 @@ dist
 src/lib
 npm-debug.log
 .env
+package-lock.json
+server/npm-debug.log
+server/package-lock.json
