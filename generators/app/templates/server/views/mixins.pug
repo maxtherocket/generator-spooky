@@ -1,0 +1,16 @@
+//- Variable example. Hash with months
+//- - let months = { '01' : 'January', '02' : 'February', '03' : 'March', '04' : 'April', '05' : 'May', '06' : 'June', '07' : 'July', '08' : 'August', '09' : 'September', '10' : 'October', '11' : 'November', '12' : 'December' }
+
+//- Function example. Formats date into a specific format.
+//- - function formatDate(date) { let organizedDate = date.slice(0,10).split('-'); let month = months[organizedDate[1]]; let year = organizedDate[0]; let day = organizedDate[2]; return `${month} ${day}, ${year}` };
+
+
+//- Image file include example
+//- mixin chevronSVG()
+  include ../../public/images/chevron_ursa.svg
+
+//- Mixin for rendering header contents.
+mixin renderHeaderContents(title, assetUrl)
+  title= title
+  link(rel="stylesheet", href=`${assetUrl}/app.css`)
+  script(src=`${assetUrl}/app.js`)

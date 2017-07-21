@@ -1,0 +1,47 @@
+include ./mixins.pug
+
+doctype html
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    meta(http-equiv="X-UA-Compatible" content="IE=edge")
+
+    //- Each page will render its own title
+    //- title= `${TITLE HERE}`
+
+    meta(name=`description`, content=`DESCRIPTION HERE`)
+    meta(name='viewport', content='width=device-width')
+
+    //- Facebook Open Graph
+    meta(property="og:type" content="website")
+    meta(property="og:title" content=`TITLE`)
+    meta(property="og:url" content=`https://DOMAIN NAME`)
+    meta(property="og:image" content=`https://DOMAIN_NAME}/IMAGE_NAME.jpg`)
+    meta(property="og:image:width" content="1462")
+    meta(property="og:image:height" content="809")
+    meta(property="og:description" content=`DESCRIPTION`)
+    meta(property="og:site_name" content=`SITE NAME`)
+    meta(property="og:locale" content="en_US")
+
+    //- Fonts
+    link(href="https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400|Roboto+Mono:300,400" rel="stylesheet")
+
+  block head
+
+  //- Optional block. Everything can be included with head.
+  block css
+
+  //- Optional block. Everything can be included with head.
+  block js
+
+  body
+    block content
+
+    //- Google analytics. Change 'UA-11111111-1' to ID provided by client
+    script.
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-11111111-1', 'auto'); ga('send', 'pageview');
+
