@@ -31,7 +31,7 @@
     "spooky-element": "^2.2.0",
     "spooky-globals": "^1.0.0",
     "spooky-model": "^1.1.0",
-    "spooky-router": "^1.12.1",
+    "spooky-router": "^2.0.1",
     "bluebird": "^3.3.5",
     "mobile-detect": "^1.3.3",
     "normalize.css": "^4.2.0",

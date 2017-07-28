@@ -4,7 +4,7 @@ const model = require('spooky-model');
 // Setup model
 model.init(require('./models/site'));
 
-const router = require('./router-main');
+const router = require('spooky-router');
 const domReady = require('domready');
 const eve = require('dom-events');
 const windowSize = require('./utils/window-size');
